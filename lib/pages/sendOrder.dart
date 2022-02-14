@@ -83,277 +83,277 @@ class Login_ extends State<sendOrder> {
         backgroundColor: Colors.white,
         body: Stack(
           children: <Widget>[
-           Container(
-             margin: EdgeInsets.all(15),
-             child:  ListView(
-               children: <Widget>[
-                 Container(
-                   child: Row(
-                     children: <Widget>[
-                       Text("自购金额   "),
-                       Text(
-                         self_money.toString(),
-                         style: TextStyle(color: Colors.red),
-                       ),
-                       Text("元"),
-                     ],
-                   ),
-                 ),
-                 Divider(height: 20,),
-                 Container(
-                   margin: EdgeInsets.only(top: 15),
-                   child: Row(
-                     children: <Widget>[
-                       Text("中奖佣金"),
-                       Container(
-                         width: ScreenUtil().setWidth(160),
-                         height: ScreenUtil().setHeight(48),
-                         margin: EdgeInsets.only(left: 15, right: 15),
-                         child: Row(
-                           children: <Widget>[
-                             GestureDetector(
-                               onTap: () {
-                                 if (yj > min_yj) {
-                                   setState(() {
-                                     yj--;
-                                   });
-                                 }
-                               },
-                               child: Container(
-                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                 color: Colors.grey,
-                                 height: ScreenUtil().setHeight(48),
-                                 alignment: Alignment.center,
-                                 child: Text(
-                                   "—",
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                               ),
-                             ),
-                             Expanded(
-                               child: TextField(
-                                 //限制2长度],//只允许输入数字
-                                 onChanged: (e) {
-                                   setState(() {
-                                     yj = double.parse(e);
-                                   });
-                                 },
-                                 controller: TextEditingController.fromValue(
-                                     TextEditingValue(
-                                         text:
-                                         '${this.yj == null ? "" : this.yj}',
-                                         selection: TextSelection.fromPosition(
-                                             TextPosition(
-                                                 affinity:
-                                                 TextAffinity.downstream,
-                                                 offset: '${this.yj}'.length)))),
-                                 keyboardType: TextInputType.number,
-                                 //键盘类型，数字键盘
+            Container(
+              margin: EdgeInsets.all(15),
+              child:  ListView(
+                children: <Widget>[
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text("自购金额   "),
+                        Text(
+                          self_money.toString(),
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        Text("元"),
+                      ],
+                    ),
+                  ),
+                  Divider(height: 20,),
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      children: <Widget>[
+                        Text("中奖佣金"),
+                        Container(
+                          width: ScreenUtil().setWidth(160),
+                          height: ScreenUtil().setHeight(48),
+                          margin: EdgeInsets.only(left: 15, right: 15),
+                          child: Row(
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  if (yj > min_yj) {
+                                    setState(() {
+                                      yj--;
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  color: Colors.grey,
+                                  height: ScreenUtil().setHeight(48),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "—",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: TextField(
+                                  //限制2长度],//只允许输入数字
+                                  onChanged: (e) {
+                                    setState(() {
+                                      yj = double.parse(e);
+                                    });
+                                  },
+                                  controller: TextEditingController.fromValue(
+                                      TextEditingValue(
+                                          text:
+                                          '${this.yj == null ? "" : this.yj}',
+                                          selection: TextSelection.fromPosition(
+                                              TextPosition(
+                                                  affinity:
+                                                  TextAffinity.downstream,
+                                                  offset: '${this.yj}'.length)))),
+                                  keyboardType: TextInputType.number,
+                                  //键盘类型，数字键盘
 
-                                 decoration: InputDecoration(
-                                   contentPadding: EdgeInsets.only(left: 10),
-                                   hintText: "",
-                                   border: OutlineInputBorder(
-                                       borderRadius:
-                                       BorderRadius.all(Radius.circular(0))),
-                                 ),
-                               ),
-                             ),
-                             GestureDetector(
-                               onTap: () {
-                                 if (yj < max_yj) {
-                                   setState(() {
-                                     yj++;
-                                   });
-                                 }
-                               },
-                               child: Container(
-                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                 color: Colors.grey,
-                                 height: ScreenUtil().setHeight(48),
-                                 alignment: Alignment.center,
-                                 child: Text(
-                                   "+",
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                               ),
-                             ),
-                             Text("%")
-                           ],
-                         ),
-                       ),
-                     ],
-                   ),
-                 ),
-                 Divider(height: 20,),
-                 Container(
-                   margin: EdgeInsets.only(top: 15),
-                   child: Row(
-                     children: <Widget>[
-                       Text("起跟金额"),
-                       Container(
-                         width: ScreenUtil().setWidth(250),
-                         height: ScreenUtil().setHeight(48),
-                         margin: EdgeInsets.only(left: 15, right: 15),
-                         child: Row(
-                           children: <Widget>[
-                             GestureDetector(
-                               onTap: () {
-                                 if (start_money > widget.num * 2) {
-                                   setState(() {
-                                     start_money -=widget.num*2;
-                                   });
-                                 }
-                               },
-                               child: Container(
-                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                 color: Colors.grey,
-                                 height: ScreenUtil().setHeight(48),
-                                 alignment: Alignment.center,
-                                 child: Text(
-                                   "—",
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                               ),
-                             ),
-                             Container(
-                               decoration: BoxDecoration(border: Border.all(color: Colors.grey,width: 1)),
-                               alignment: Alignment.center,
-                               width: ScreenUtil().setWidth(80),
-                               height: ScreenUtil().setHeight(48),
-                               child: Text(start_money.toString()),
-                             ),
-                             GestureDetector(
-                               onTap: () {
-                                 if (start_money < self_money) {
-                                   setState(() {
-                                     start_money+=widget.num*2;
-                                     if(start_money>self_money){
-                                       start_money = self_money;
-                                     }
-                                   });
-                                 }
-                               },
-                               child: Container(
-                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                 color: Colors.grey,
-                                 height: ScreenUtil().setHeight(48),
-                                 alignment: Alignment.center,
-                                 child: Text(
-                                   "+",
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                               ),
-                             ),
-                             GestureDetector(
-                               onTap: () {
-                                 if (start_money < self_money) {
-                                   setState(() {
-                                     start_money+=widget.num*4;
-                                     if(start_money>self_money){
-                                       start_money = self_money;
-                                     }
-                                   });
-                                 }
-                               },
-                               child: Container(
-                                 margin: EdgeInsets.only(left: 1),
-                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                 color: Colors.grey,
-                                 height: ScreenUtil().setHeight(48),
-                                 alignment: Alignment.center,
-                                 child: Text(
-                                   "+",
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                     ],
-                   ),
-                 ),
-                 Divider(height: 20,),
-                 Container(
-                   margin: EdgeInsets.only(top: 25,left: 25),
-                   child: Row(
-                     children: <Widget>[
-                       Text("保赔"),
-                       Container(
-                         width: ScreenUtil().setWidth(150),
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(left: 10),
+                                    hintText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(0))),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (yj < max_yj) {
+                                    setState(() {
+                                      yj++;
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  color: Colors.grey,
+                                  height: ScreenUtil().setHeight(48),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Text("%")
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(height: 20,),
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      children: <Widget>[
+                        Text("起跟金额"),
+                        Container(
+                          width: ScreenUtil().setWidth(250),
+                          height: ScreenUtil().setHeight(48),
+                          margin: EdgeInsets.only(left: 15, right: 15),
+                          child: Row(
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  if (start_money > widget.num * 2) {
+                                    setState(() {
+                                      start_money -=widget.num*2;
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  color: Colors.grey,
+                                  height: ScreenUtil().setHeight(48),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "—",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(border: Border.all(color: Colors.grey,width: 1)),
+                                alignment: Alignment.center,
+                                width: ScreenUtil().setWidth(80),
+                                height: ScreenUtil().setHeight(48),
+                                child: Text(start_money.toString()),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (start_money < self_money) {
+                                    setState(() {
+                                      start_money+=widget.num*2;
+                                      if(start_money>self_money){
+                                        start_money = self_money;
+                                      }
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  color: Colors.grey,
+                                  height: ScreenUtil().setHeight(48),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (start_money < self_money) {
+                                    setState(() {
+                                      start_money+=widget.num*4;
+                                      if(start_money>self_money){
+                                        start_money = self_money;
+                                      }
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 1),
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  color: Colors.grey,
+                                  height: ScreenUtil().setHeight(48),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(height: 20,),
+                  Container(
+                    margin: EdgeInsets.only(top: 25,left: 25),
+                    child: Row(
+                      children: <Widget>[
+                        Text("保赔"),
+                        Container(
+                          width: ScreenUtil().setWidth(150),
 
-                         margin: EdgeInsets.only(left: 15, right: 15),
-                         child: Text("2.0"),
-                       ),
-                     ],
-                   ),
-                 ),
-                 Divider(height: 20,),
-                 Container(
+                          margin: EdgeInsets.only(left: 15, right: 15),
+                          child: Text("2.0"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(height: 20,),
+                  Container(
 
-                   margin: EdgeInsets.only(top: 15),
-                   child: Row(
-                     children: <Widget>[
-                       Container(
-                         margin: EdgeInsets.only(right: 15),
-                         child: Text("方案标题"),
-                       ),
-                       Expanded(
-                         child: TextField(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(right: 15),
+                          child: Text("方案标题"),
+                        ),
+                        Expanded(
+                          child: TextField(
 
-                           onChanged: (e) {
-                             setState(() {
-                               plan_title = e;
-                             });
+                            onChanged: (e) {
+                              setState(() {
+                                plan_title = e;
+                              });
 
-                           },
-                           controller: _controller,
-                           decoration: InputDecoration(
-                             hintStyle: TextStyle(fontSize: ScreenUtil().setSp(13)),
-                             border: OutlineInputBorder(),
-                             contentPadding: EdgeInsets.only(left: 10),
-                             hintText:"请输入标题(20字以内)",
-                           ),
-                         ),
-                       )
-                     ],
-                   ),
-                 ),
-                 Divider(height: 20,),
-                 Container(
+                            },
+                            controller: _controller,
+                            decoration: InputDecoration(
+                              hintStyle: TextStyle(fontSize: ScreenUtil().setSp(13)),
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.only(left: 10),
+                              hintText:"请输入标题(20字以内)",
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Divider(height: 20,),
+                  Container(
 
-                   margin: EdgeInsets.only(top: 15),
-                   child: Row(
-                     children: <Widget>[
-                       Container(
-                         margin: EdgeInsets.only(right: 15),
-                         child: Text("方案描述"),
-                       ),
-                       Expanded(
-                         child: TextField(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(right: 15),
+                          child: Text("方案描述"),
+                        ),
+                        Expanded(
+                          child: TextField(
 
-                           onChanged: (e) {
-                             setState(() {
-                               plan_desc = e;
-                             });
+                            onChanged: (e) {
+                              setState(() {
+                                plan_desc = e;
+                              });
 
-                           },
-                           controller: _controller1,
-                           decoration: InputDecoration(
-                             hintStyle: TextStyle(fontSize: ScreenUtil().setSp(13)),
-                             border: OutlineInputBorder(),
-                             contentPadding: EdgeInsets.only(left: 10),
-                             hintText:"最多可输入50字",
-                           ),
-                         ),
-                       )
-                     ],
-                   ),
-                 ),
-               ],
-             ),
-           ),
+                            },
+                            controller: _controller1,
+                            decoration: InputDecoration(
+                              hintStyle: TextStyle(fontSize: ScreenUtil().setSp(13)),
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.only(left: 10),
+                              hintText:"最多可输入50字",
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Positioned(
               left: 0,
               right: 0,
@@ -361,7 +361,7 @@ class Login_ extends State<sendOrder> {
               child: Container(
                 padding: EdgeInsets.only(left: 10),
                 decoration:
-                    BoxDecoration(border: Border(top: BorderSide(width: 0.2))),
+                BoxDecoration(border: Border(top: BorderSide(width: 0.2))),
                 height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -380,30 +380,30 @@ class Login_ extends State<sendOrder> {
                     ),
                     GestureDetector(
                       onTap: (){
-                         EventDioLog("提示","确认付款",context,() async {
-                           ResultData res =
-                               await HttpManager.getInstance()
-                               .post("doorder", params: {
-                             "games": widget.check_game,
-                             "min_pl":min_pl,
-                             "chuan": widget.chuan_,
-                             "num": widget.num,
-                             "bei": widget.bei,
-                             "type": widget.type,
-                             "start_money":start_money,
-                             "win_yj":yj,
-                             "plan_title":plan_title,
-                             "plan_desc":plan_desc
-                           });
-                           if (res.data["code"] == 200) {
-                             JumpAnimation().jump(
-                                 success(res.data["data"],widget.type), context);
-                           } else {
-                             Toast.toast(context,
-                                 msg: res.data["msg"]);
-                             return;
-                           }
-                         }).showDioLog();
+                        EventDioLog("提示","确认付款",context,() async {
+                          ResultData res =
+                          await HttpManager.getInstance()
+                              .post("doorder", params: {
+                            "games": widget.check_game,
+                            "min_pl":min_pl,
+                            "chuan": widget.chuan_,
+                            "num": widget.num,
+                            "bei": widget.bei,
+                            "type": widget.type,
+                            "start_money":start_money,
+                            "win_yj":yj,
+                            "plan_title":plan_title,
+                            "plan_desc":plan_desc
+                          });
+                          if (res.data["code"] == 200) {
+                            JumpAnimation().jump(
+                                success(res.data["data"],widget.type), context);
+                          } else {
+                            Toast.toast(context,
+                                msg: res.data["msg"]);
+                            return;
+                          }
+                        }).showDioLog();
                       },
                       child: Container(
                         padding: EdgeInsets.only(left: 20, right: 20),

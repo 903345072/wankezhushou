@@ -20,6 +20,12 @@ import 'package:flutterapp2/wiget/basketball/basketballSf.dart';
 import 'package:flutterapp2/wiget/basketball/basketballrfSf.dart';
 import 'package:flutterapp2/wiget/basketball/basketbifen.dart';
 import 'package:flutterapp2/wiget/basketball/basketdxf.dart';
+import 'package:flutterapp2/wiget/beijing/bbf.dart';
+import 'package:flutterapp2/wiget/beijing/bonup.dart';
+import 'package:flutterapp2/wiget/beijing/bqc.dart';
+import 'package:flutterapp2/wiget/beijing/bsf.dart';
+import 'package:flutterapp2/wiget/beijing/bspf.dart';
+import 'package:flutterapp2/wiget/beijing/bttg.dart';
 import 'package:flutterapp2/wiget/football/banquanchang.dart';
 import 'package:flutterapp2/wiget/football/bifen.dart';
 import 'package:flutterapp2/wiget/football/feirangqiu.dart';
@@ -27,7 +33,7 @@ import 'package:flutterapp2/wiget/football/mix.dart';
 import 'package:flutterapp2/wiget/football/rangqiu.dart';
 import 'package:flutterapp2/wiget/football/zongjinqiu.dart';
 
-class order extends StatefulWidget {
+class beijingorder extends StatefulWidget {
   Function callBack;
   Map games;
   List game_ids;
@@ -35,17 +41,17 @@ class order extends StatefulWidget {
   int least_game;
   String f_or_b;
 
-  order(this.games, this.game_ids, this.callBack, this.type, this.least_game,
+  beijingorder(this.games, this.game_ids, this.callBack, this.type, this.least_game,
       this.f_or_b);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return order_();
+    return beijingorder_();
   }
 }
 
-class order_ extends State<order> {
+class beijingorder_ extends State<beijingorder> {
   Map min_max = {};
   List zmax = [];
   List zsm = [];
@@ -250,139 +256,7 @@ class order_ extends State<order> {
                                   )
                                 ],
                               ),
-                              widget.f_or_b == "f"?GestureDetector(
-                                onTap: (){
-                                  int check_length = chuan_.length;
 
-                                  if (widget.least_game > 1 && is_dan() == false) {
-                                    if (check_length == 0 && is_dan() == true) {
-                                      setState(() {
-                                        visible_ = visible_ == true ? false : true;
-                                        is_pack  = is_pack == true ? false : true;
-                                      });
-                                      return;
-                                    }
-                                  }
-
-                                  if(getNum().length == 0){
-
-                                    Toast.toast(context,msg: "请选择比赛");
-                                    return;
-                                  }
-
-                                  List check_game = [];
-                                  widget.games.forEach((key, value) {
-                                    value.forEach((game) {
-                                      if (widget.game_ids
-                                          .contains(game["id"])) {
-                                        List ls1 = game["check_info"];
-                                        List attr = [];
-                                        ls1.forEach((element) {
-                                          List ls2 = element["bet_way"];
-
-                                          ls2.forEach((element2) {
-                                            if (element2["color"] == "red") {
-
-                                              String atr = element["id"]
-                                                  .toString() +
-                                                  "-" +
-                                                  element2["id"].toString();
-                                              Map pl_ =  jsonDecode(game["checks"]);
-
-                                              String pl;
-                                              pl_.forEach((key, value) {
-                                                List va = value;
-
-                                                if(element["id"].toString() == key.toString()){
-
-                                                  va.forEach((element3) {
-                                                    List vv = element3.toString().split("-");
-                                                    if(element2["id"].toString() == vv[0].toString()){
-                                                      pl = vv[1];
-                                                    }
-                                                  });
-                                                }
-                                              });
-                                              attr.add('{"pl":'+pl+',"name":"'+element["name"]+'","week":"'+game["num"]+'","value":"'+element2["value"]+'","h_name":"'+game["h_cn_a"].toString()+'","a_name":"'+game["a_cn_a"].toString()+'","id":'+game["id"].toString()+',"attr":"'+atr+'"}');
-                                            }
-                                          });
-                                        });
-                                        check_game.add(attr);
-                                      }
-                                    });
-                                  });
-                                  List s2 = [];
-
-                                  if(chuan_.length>0){
-                                    int index = 1;
-                                    List game_list = [];
-                                    chuan_.forEach((element5) {
-                                      game_list.add(plzh_(check_game, element5));
-                                    });
-                                    game_list.forEach((elements1) {
-                                      List ls2  = elements1;
-                                      ls2.forEach((elements2) {
-                                        List ls3 = cartesian_(elements2);
-                                        ls3.forEach((elements3) {
-                                          List ls1 = elements3.toString().split("&");
-                                          List ls4 = [];
-                                          ls1.forEach((elements4) {
-                                            ls4.add(jsonDecode(elements4));
-                                          });
-                                          s2.add({"data":ls4,"award":1.0,"base_award":1.0,"num":1,"is_show":true,"index":index});
-                                          index++;
-                                        });
-                                      });
-                                    });
-                                  }else{
-                                    int index = 1;
-                                    check_game.forEach((v1) {
-                                      List sl = v1;
-
-                                      sl.forEach((v2) {
-                                        s2.add({"data":[jsonDecode(v2)],"award":1.0,"base_award":1.0,"num":1,"is_show":true,"index":index});
-                                        index++;
-
-                                      });
-
-                                    });
-                                  }
-
-                                  List check_games = [];
-                                  widget.games.forEach((key, value) {
-                                    value.forEach((game) {
-                                      if (widget.game_ids
-                                          .contains(game["id"])) {
-                                        List ls1 = game["check_info"];
-                                        List attr = [];
-                                        ls1.forEach((element) {
-                                          List ls2 = element["bet_way"];
-                                          ls2.forEach((element2) {
-                                            if (element2["color"] == "red") {
-                                              attr.add({
-                                                "id": game["id"],
-                                                "attr": element["id"]
-                                                    .toString() +
-                                                    "-" +
-                                                    element2["id"].toString()
-                                              });
-                                            }
-                                          });
-                                        });
-                                        check_games.add(attr);
-                                      }
-                                    });
-                                  });
-                                  JumpAnimation().jump(awardOptimize(data: s2,money: int.parse(getMoney()),chuan: chuan_.length,game: check_games), context);
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.only(left: 10,right: 10),
-                                  decoration: BoxDecoration(color: Color(0xffcccccc)),
-                                  margin: EdgeInsets.only(left: ScreenUtil().setWidth(40)),
-                                  child: Text("奖金优化",style: TextStyle(color: Colors.white),),
-                                ),
-                              ):Container(),
                             ],
                           ),
                         ),
@@ -391,74 +265,7 @@ class order_ extends State<order> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () async{
-
-
-
-                                  int check_length = chuan_.length;
-                                  if (widget.least_game > 1) {
-                                    if (check_length == 0) {
-                                      setState(() {
-                                        visible_ =
-                                        visible_ == true ? false : true;
-                                        is_pack =
-                                        is_pack == true ? false : true;
-                                      });
-                                      return;
-                                    }
-                                  }
-
-                                  if(getNum().length == 0){
-
-                                    Toast.toast(context,msg: "请选择比赛");
-                                    return;
-                                  }
-
-
-
-
-                                  if(double.parse(getMoney())<50){
-                                    Toast.toast(context,msg: "投注金额不能低于50元");
-                                    return;
-                                  }
-                                  List check_game = [];
-                                  widget.games.forEach((key, value) {
-                                    value.forEach((game) {
-                                      if (widget.game_ids
-                                          .contains(game["id"])) {
-                                        List ls1 = game["check_info"];
-                                        List attr = [];
-                                        ls1.forEach((element) {
-                                          List ls2 = element["bet_way"];
-                                          ls2.forEach((element2) {
-                                            if (element2["color"] == "red") {
-                                              attr.add({
-                                                "id": game["id"],
-                                                "attr": element["id"]
-                                                    .toString() +
-                                                    "-" +
-                                                    element2["id"].toString()
-                                              });
-                                            }
-                                          });
-                                        });
-                                        check_game.add(attr);
-                                      }
-                                    });
-                                  });
-
-
-                                  JumpAnimation().jump(sendOrder(check_game,chuan_,getNum().length,num,widget.f_or_b), context);
-
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: ScreenUtil().setWidth(90),
-                                  color: Color(0xffe6e6e6),
-                                  child: Text("发单"),
-                                ),
-                              ),
+                              Container(),
                               Container(
 
                                 alignment: Alignment.center,
@@ -480,7 +287,7 @@ class order_ extends State<order> {
                                     Text(getMoney() + "元",
                                         style: TextStyle(
                                             fontSize: ScreenUtil().setSp(14))),
-                                    getNum().length>=1? getExpectAward():Container()
+
 
                                   ],
                                 ),
@@ -760,8 +567,7 @@ class order_ extends State<order> {
           zz.add(ls);
 
           Map ls4 = new Map.from(ls2);
-          List p_g = game["p_goal"].toString().split(",");
-          String pg = p_g[1];
+          String pg = game["p_goal"].toString();
           List key_list = ls2.keys.toList();
 
 
@@ -1197,52 +1003,40 @@ class order_ extends State<order> {
         int flag3=0;
         int flag4=0;
         int flag5=0;
-        List s1 ;
-        List s2 ;
-        List s3 ;
-        List s4 ;
-        List s5 ;
-        widget.games.forEach((key, value) {
-          List ggs = value;
-          ggs.forEach((element) {
-            s1 = element["check_info"][0]["bet_way"];
-            s2 = element["check_info"][1]["bet_way"];
-            s3 = element["check_info"][2]["bet_way"];
-            s4 = element["check_info"][3]["bet_way"];
-            s5 = element["check_info"][4]["bet_way"];
-            s1.forEach((element1) {
-              if(element1["color"] == "red"){
-                flag1 = 1;
-                return;
-              }
-            });
-            s2.forEach((element2) {
-              if(element2["color"] == "red"){
-                flag2 = 1;
-                return;
-              }
-            });
-            s3.forEach((element3) {
-
-              if(element3["color"] == "red" ){
-
-                flag3 = 1;
-                return;
-              }
-            });
-            s4.forEach((element4) {
-              if(element4["color"] == "red" ){
-                flag4 = 1;
-                return;
-              }
-            });
-            s5.forEach((element5) {
-              if(element5["color"] == "red" ){
-                flag5 = 1;
-                return;
-              }
-            });
-          });
+        List s1 = widget.games.values.toList()[0][0]["check_info"][0]["bet_way"];
+        List s2 = widget.games.values.toList()[0][0]["check_info"][1]["bet_way"];
+        List s3 = widget.games.values.toList()[0][0]["check_info"][2]["bet_way"];
+        List s4 = widget.games.values.toList()[0][0]["check_info"][3]["bet_way"];
+        List s5 = widget.games.values.toList()[0][0]["check_info"][4]["bet_way"];
+        s1.forEach((element1) {
+          if(element1["color"] == "red"){
+            flag1 = 1;
+            return;
+          }
+        });
+        s2.forEach((element2) {
+          if(element2["color"] == "red"){
+            flag2 = 1;
+            return;
+          }
+        });
+        s3.forEach((element2) {
+          if(element2["color"] == "red"){
+            flag3 = 1;
+            return;
+          }
+        });
+        s4.forEach((element2) {
+          if(element2["color"] == "red"){
+            flag4 = 1;
+            return;
+          }
+        });
+        s5.forEach((element2) {
+          if(element2["color"] == "red"){
+            flag5 = 1;
+            return;
+          }
         });
         if(flag1 == 1 || flag2 == 1 || flag3 == 1 || flag4 == 1 || flag5 == 1){
 
@@ -1491,9 +1285,9 @@ class order_ extends State<order> {
       String p_goal = list_game_[e]["p_goal"].toString();
       List p_status = list_game_[e]["p_status"].toString().split(",");
 
-      if (list_game_[e]["type"] == 1) {
-        p_goal = list_game_[e]["p_goal"].toString().split(",")[1]; //让球个数
-      }
+
+        p_goal = list_game_[e]["p_goal"].toString(); //让球个数
+
       if (list_game_[e]["type"] == 2 ||
           list_game_[e]["type"] == 3 ||
           list_game_[e]["type"] == 4 ||
@@ -1510,9 +1304,10 @@ class order_ extends State<order> {
 
       List ttg_odds = list_game_[e]["ttg_odds"].toString().split(","); //总进球赔率
       List half_odds = list_game_[e]["hafu_odds"].toString().split(","); //半全场赔率
+      List onup = list_game_[e]["on_up"].toString().split(","); //半全场赔率
       List spf = list_game_[e]["had_odds"].toString().split(","); //非让球赔率
 
-      List rqspf = list_game_[e]["hhad_odds"].toString().split(","); //让球赔率
+      List sf = list_game_[e]["hhad_odds"].toString().split(","); //胜负赔率
       List crs_win = list_game_[e]["crs_win"].toString().split(","); //胜比分赔率
       List crs_draw = list_game_[e]["crs_draw"].toString().split(","); //平比分赔率
       List crs_lose = list_game_[e]["crs_lose"].toString().split(","); //负比分赔率
@@ -1545,7 +1340,7 @@ class order_ extends State<order> {
             children: <Widget>[
               //比赛组件
               getComponent(p_status, p_goal, widget.games, e2, e, zd_name,
-                  kd_name, spf, rqspf, crs_win, ttg_odds, half_odds),
+                  kd_name, spf, sf, crs_win, ttg_odds, half_odds,onup),
               IconButton(
                 onPressed: () {
                   widget.games.removeWhere((key, value) => false);
@@ -1568,11 +1363,8 @@ class order_ extends State<order> {
   }
 
   List getGame(List list_game_, e2) {
-    if (widget.f_or_b == "f") {
-      return getGameList_foot(list_game_, e2);
-    } else {
-      return getGameList_basket(list_game_, e2);
-    }
+
+    return getGameList_foot(list_game_, e2);
   }
 
   List getGameList_basket(List list_game_, e2) {
@@ -1594,7 +1386,7 @@ class order_ extends State<order> {
       List wnm_lose; //胜分差客胜赔率
       if (list_game_[e]["type"] == 1) {
 
-        dafen = list_game_[e]["p_goal"].toString().split(",")[3];
+        dafen = list_game_[e]["p_goal"].toString();
         dxf_odds = list_game_[e]["hilo_odds"].toString().split(","); //大小分赔率
         hdc_odds = list_game_[e]["hdc_odds"].toString().split(","); //让分赔率
         mnl_odds = list_game_[e]["mnl_odds"].toString().split(","); //非让分赔率
@@ -1710,64 +1502,12 @@ class order_ extends State<order> {
     });
     return game_ids.length.toString();
   }
-  getComponent(p_status, p_goal, games, e2, e, zd_name, kd_name, spf, rqspf,
-      crs_win, ttg_odds, half_odds) {
+  getComponent(p_status, p_goal, games, e2, e, zd_name, kd_name, spf, sf,
+      crs_win, ttg_odds, half_odds,onup) {
     switch (widget.type) {
+
       case 0:
-        int flag1=0;
-        int flag2=0;
-        if(getGameNum() == "1"){
-          List s1 = games[e2][e]["check_info"][0]["bet_way"];
-          List s2 = games[e2][e]["check_info"][1]["bet_way"];
-          s1.forEach((element) {
-            if(element["color"] == "red"){
-              flag1 = 1;
-              return;
-            }
-          });
-          s2.forEach((element) {
-            if(element["color"] == "red"){
-              flag2 = 1;
-              return;
-            }
-          });
-        }
-        return  mix(
-          callBack: (value) {
-            setState(() {
-              games = value;
-            });
-          },
-          p_status: p_status,
-          p_goal: p_goal,
-          games: games,
-          e2: e2,
-          e: e,
-          zd_name: zd_name,
-          kd_name: kd_name,
-          spf: spf,
-          rqspf: rqspf,
-          crs_win: crs_win,
-          ttg_odds: ttg_odds,
-          half_odds: half_odds,
-        );
-      case 1:
-        return rangqiu(
-            callBack: (value) {
-              setState(() {
-                games = value;
-              });
-            },
-            p_status: p_status,
-            p_goal: p_goal,
-            games: games,
-            e2: e2,
-            e: e,
-            zd_name: zd_name,
-            kd_name: kd_name,
-            rqspf: rqspf);
-      case 2:
-        return feirangqiu(
+        return bspf(
             callBack: (value) {
               setState(() {
                 games = value;
@@ -1781,52 +1521,35 @@ class order_ extends State<order> {
             zd_name: zd_name,
             kd_name: kd_name,
             spf: spf);
+      case 1:
+       return bttg(callBack: (value) {
+          setState(() {
+            games = value;
+          });
+        },p_status:p_status,games: games,e2: e2,e: e,zd_name: zd_name,kd_name: kd_name,ttg_odds: ttg_odds,
+        );
+      case 2:
+      return bqc(callBack: (value) {
+          setState(() {
+            games = value;
+          });
+        },p_status:p_status,games: games,e2: e2,e: e,zd_name: zd_name,kd_name: kd_name,half_odds: half_odds,
+        );
       case 3:
-        return zongjinqiu(
-          callBack: (value) {
-            setState(() {
-              games = value;
-            });
-          },
-          p_status: p_status,
-          games: games,
-          e2: e2,
-          e: e,
-          zd_name: zd_name,
-          kd_name: kd_name,
-          ttg_odds: ttg_odds,
+        return bonup(callBack: (value) {
+          setState(() {
+            games = value;
+          });
+        },p_status:p_status,games: games,e2: e2,e: e,zd_name: zd_name,kd_name: kd_name,ttg_odds: onup,
         );
       case 4:
-        return bifen(
-          callBack: (value) {
-            setState(() {
-              games = value;
-            });
-          },
-          p_status: p_status,
-          games: games,
-          e2: e2,
-          e: e,
-          zd_name: zd_name,
-          kd_name: kd_name,
-          crs_win: crs_win,
+        return bbf(callBack: (value) {
+          setState(() {
+            games = value;
+          });
+        },p_status:p_status,games: games,e2: e2,e: e,zd_name: zd_name,kd_name: kd_name,crs_win: crs_win,
         );
       case 5:
-        return banquanchang(
-          callBack: (value) {
-            setState(() {
-              games = value;
-            });
-          },
-          p_status: p_status,
-          games: games,
-          e2: e2,
-          e: e,
-          zd_name: zd_name,
-          kd_name: kd_name,
-          half_odds: half_odds,
-        );
-      case 6:
         return feirangqiu(
             callBack: (value) {
               setState(() {
@@ -1841,7 +1564,7 @@ class order_ extends State<order> {
             zd_name: zd_name,
             kd_name: kd_name,
             spf: spf);
-      case 7:
+      case 6:
         return rangqiu(
             callBack: (value) {
               setState(() {
@@ -1855,8 +1578,8 @@ class order_ extends State<order> {
             e: e,
             zd_name: zd_name,
             kd_name: kd_name,
-            rqspf: rqspf);
-      case 8:
+            rqspf: sf);
+      case 7:
         return zongjinqiu(
           callBack: (value) {
             setState(() {
@@ -1871,7 +1594,7 @@ class order_ extends State<order> {
           kd_name: kd_name,
           ttg_odds: ttg_odds,
         );
-      case 9:
+      case 8:
         return bifen(
           callBack: (value) {
             setState(() {

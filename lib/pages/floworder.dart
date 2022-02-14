@@ -59,22 +59,22 @@ class Login_ extends State<floworder> {
     });
   }
   getList(index) async {
-   ResultData res = await HttpManager.getInstance().get("getFlowOrder",params: {"index":index},withLoading: false);
-   ResultData res1 = await HttpManager.getInstance().get("zhongjiang",withLoading: false);
-   setState(() {
-     page = 1;
+    ResultData res = await HttpManager.getInstance().get("getFlowOrder",params: {"index":index},withLoading: false);
+    ResultData res1 = await HttpManager.getInstance().get("zhongjiang",withLoading: false);
+    setState(() {
+      page = 1;
       if(res.data["data"] != null){
         list = res.data["data"];
       }
-     if(res.data["dashen"] != null){
-       dashen = res.data["dashen"];
-     }else{
-       dashen = [];
-     }
-     uids = res.data["uids"];
+      if(res.data["dashen"] != null){
+        dashen = res.data["dashen"];
+      }else{
+        dashen = [];
+      }
+      uids = res.data["uids"];
 
-     zhongjiang = res1.data["data"];
-   });
+      zhongjiang = res1.data["data"];
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class Login_ extends State<floworder> {
 
                       return Center(
                         child: EasyRefresh(
-                        
+
                           refreshFooter: freshStyle.getFooter(_footerKey),
                           child:  ListView(
                             children: <Widget>[
@@ -501,14 +501,14 @@ class Login_ extends State<floworder> {
                                                 decoration: BoxDecoration(
                                                     border: Border(
                                                         left: BorderSide(width: 3, color: Colors.red))),
-                                               ),
+                                              ),
                                               Text("热门红单")
                                             ],
                                           ),
                                         ),
                                         Container(
                                           padding: EdgeInsets.only(bottom: 7),
-                                         decoration: index==1? BoxDecoration(border: Border(bottom: BorderSide(color: Colors.red,width: 2))):null,
+                                          decoration: index==1? BoxDecoration(border: Border(bottom: BorderSide(color: Colors.red,width: 2))):null,
                                           child: GestureDetector(
                                             onTap: (){
                                               setState(() {
@@ -654,89 +654,89 @@ class Login_ extends State<floworder> {
             Divider(
               height: 25,
             ),
-             Container(
-               width: double.maxFinite,
-               margin: EdgeInsets.only(top: 5),
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: <Widget>[
-                   Container(
-                     width: 260,
-                     child: Row(
+            Container(
+              width: double.maxFinite,
+              margin: EdgeInsets.only(top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: 260,
+                    child: Row(
 
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                       children: <Widget>[
-                         Column(
-                           children: <Widget>[
-                             Text("类型"),
-                             Text(list[e]["flag"]=="pl"?"排列三":list[e]["type"]=="f"?"竞彩足球":"竞彩篮球",style: TextStyle(color: Colors.red),),
-                           ],
-                         ),
-                         SizedBox(
-                           width: 0.2,
-                           height: 20,
-                           child: DecoratedBox(
-                             decoration: BoxDecoration(color: Colors.grey),
-                           ),
-                         ),
-                         Column(
-                           children: <Widget>[
-                             Text("自购金额"),
-                             Text(list[e]["amount"],style: TextStyle(color: Colors.red),),                           ],
-                         ),
-                         SizedBox(
-                           width: 0.2,
-                           height: 20,
-                           child: DecoratedBox(
-                             decoration: BoxDecoration(color: Colors.grey),
-                           ),
-                         ),
-                         Column(
-                           children: <Widget>[
-                             Text("单倍金额"),
-                             Text((list[e]["num"]*2).toString(),style: TextStyle(color: Colors.red),),                           ],
-                         ),
-                       ],
-                     ),
-                   ),
-                   Container(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text("类型"),
+                            Text(list[e]["flag"]=="pl"?"排列三":list[e]["type"]=="f"?"竞彩足球":"竞彩篮球",style: TextStyle(color: Colors.red),),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 0.2,
+                          height: 20,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(color: Colors.grey),
+                          ),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text("自购金额"),
+                            Text(list[e]["amount"],style: TextStyle(color: Colors.red),),                           ],
+                        ),
+                        SizedBox(
+                          width: 0.2,
+                          height: 20,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(color: Colors.grey),
+                          ),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text("单倍金额"),
+                            Text((list[e]["num"]*2).toString(),style: TextStyle(color: Colors.red),),                           ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
 
 
-                     margin: EdgeInsets.only(left: 5),
-                     alignment: Alignment.center,
-                     width: ScreenUtil().setWidth(80),
-                     child: RaisedButton(
-                       color: Colors.deepOrange,
-                       onPressed: () {
-                         if(list[e]["flag"] == "pl"){
-                           JumpAnimation().jump( plflowdetail(list[e]), context);
-                         }else{
-                           JumpAnimation().jump( flowdetail(list[e]), context);
-                         }
+                    margin: EdgeInsets.only(left: 5),
+                    alignment: Alignment.center,
+                    width: ScreenUtil().setWidth(80),
+                    child: RaisedButton(
+                      color: Colors.deepOrange,
+                      onPressed: () {
+                        if(list[e]["flag"] == "pl"){
+                          JumpAnimation().jump( plflowdetail(list[e]), context);
+                        }else{
+                          JumpAnimation().jump( flowdetail(list[e]), context);
+                        }
 
-                       },
-                       child: Text('跟单',style: TextStyle(fontSize: 12.0,color: Colors.white),),
-                       ///圆角
-                       shape: RoundedRectangleBorder(
-                           side: BorderSide.none,
-                           borderRadius: BorderRadius.all(Radius.circular(15))
-                       ),
-                     )
-                     ,
-                   )
-                 ],
-               ),
-             ),
+                      },
+                      child: Text('跟单',style: TextStyle(fontSize: 12.0,color: Colors.white),),
+                      ///圆角
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(15))
+                      ),
+                    )
+                    ,
+                  )
+                ],
+              ),
+            ),
             Container(
               margin:EdgeInsets.only(top: 5),
               alignment: Alignment.bottomRight,
               width: double.infinity,
               child: Text("截止:"+list[e]["dtime"]),
             ),
-             Divider(
-               height: 25,
-             ),
+            Divider(
+              height: 25,
+            ),
 
           ],
         ),

@@ -216,7 +216,7 @@ class hangqing_ extends State<orderdetail>{
                           children: [
                             Container(
                               padding:EdgeInsets.only(top: 5,bottom: 5),
-                              child: Text(order["type"]=="f"?"竞彩足球":"竞彩篮球",textAlign: TextAlign.center,),
+                              child: Text(order["type"]=="f"?"竞彩足球":order["type"]=="bd"?"北京单场":"竞彩篮球",textAlign: TextAlign.center,),
                             ),
                             Container(
                               padding:EdgeInsets.only(top: 5,bottom: 5),
@@ -297,7 +297,7 @@ class hangqing_ extends State<orderdetail>{
                                       ),
                                       Container(
                                         width: ScreenUtil().setWidth(95),
-                                        child: order["type"] =="f"?Text("主队VS客队"):Text("客队VS主队"),
+                                        child: (order["type"] =="f" || order["type"] == "bd")?Text("主队VS客队"):Text("客队VS主队"),
                                       ),
                                       Container(
                                         width: ScreenUtil().setWidth(75),
@@ -393,7 +393,7 @@ class hangqing_ extends State<orderdetail>{
                                             ),
                                             Container(
                                               width: ScreenUtil().setWidth(95),
-                                              child: order["type"] =="f"?Text("主队VS客队"):Text("客队VS主队"),
+                                              child: (order["type"] =="f" || order["type"] == "bd")?Text("主队VS客队"):Text("客队VS主队"),
                                             ),
                                             Container(
                                               width: ScreenUtil().setWidth(75),
@@ -464,7 +464,7 @@ class hangqing_ extends State<orderdetail>{
                                             ),
                                             Container(
                                               width: ScreenUtil().setWidth(95),
-                                              child: order["type"] =="f"?Text("主队VS客队"):Text("客队VS主队"),
+                                              child: (order["type"] =="f" || order["type"] == "bd")?Text("主队VS客队"):Text("客队VS主队"),
                                             ),
                                             Container(
                                               width: ScreenUtil().setWidth(75),
@@ -577,7 +577,7 @@ class hangqing_ extends State<orderdetail>{
                                             ),
                                             Container(
                                               width: ScreenUtil().setWidth(95),
-                                              child: order["type"] =="f"?Text("主队VS客队"):Text("客队VS主队"),
+                                              child: (order["type"] =="f" || order["type"] == "bd")?Text("主队VS客队"):Text("客队VS主队"),
                                             ),
                                             Container(
                                               width: ScreenUtil().setWidth(75),
@@ -759,6 +759,7 @@ class hangqing_ extends State<orderdetail>{
     String h_name ;
     String a_name ;
     String bifen ;
+    String game_no = "";
     int num;
     Map data;
     if(order["mode"] == "4"){
@@ -776,6 +777,9 @@ class hangqing_ extends State<orderdetail>{
         h_name = s[key][0]["h_name"].toString();
         a_name = s[key][0]["a_name"].toString();
         bifen = s[key][0]["bifen"].toString();
+        if(order["type"]=="bd"){
+          game_no =s[key][0]["game_no"].toString();;
+        }
         List z = s[key];
 
         z.forEach((element) {
@@ -802,13 +806,13 @@ class hangqing_ extends State<orderdetail>{
               alignment: Alignment.center,
               width: ScreenUtil().setWidth(60),
 
-              child: Column(
+              child:    order["type"]!="bd" ?Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("周"+num_to_cn[week]),
                   Text(order_no),
                 ],
-              ),
+              ):Text(game_no),
             ),
 
 
@@ -821,9 +825,9 @@ class hangqing_ extends State<orderdetail>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(order["type"]=="f"?h_name:a_name,style: TextStyle(fontSize: ScreenUtil().setSp(13),height: 1.2),),
+                  Text((order["type"] =="f" || order["type"] == "bd")?h_name:a_name,style: TextStyle(fontSize: ScreenUtil().setSp(13),height: 1.2),),
                   Text(bifen,style: TextStyle(fontSize: ScreenUtil().setSp(13),height: 1.2)),
-                  Text(order["type"]=="f"?a_name:h_name,style: TextStyle(fontSize: ScreenUtil().setSp(13),height: 1.2)),
+                  Text((order["type"] =="f" || order["type"] == "bd")?a_name:h_name,style: TextStyle(fontSize: ScreenUtil().setSp(13),height: 1.2)),
                 ],
               ),
             ),
@@ -856,30 +860,36 @@ class hangqing_ extends State<orderdetail>{
           s[e][0]["is_right"] = true;
         }
       });
-      p_goal = ls[0]["p_goal"];
+      if(order["type"] != "bd"){
+        p_goal = ls[0]["p_goal"];
 
-      List pg = p_goal.toString().split(",");
-      List meth_id = ls[0]["method_id"].toString().split("-");
+        List pg = p_goal.toString().split(",");
+        List meth_id = ls[0]["method_id"].toString().split("-");
 
-      if(order["type"] == "f"){
-        if(meth_id[0] == "2"){
-          if(pg.length == 1){
-            rf = pg[0];
+        if(order["type"] == "f"){
+          if(meth_id[0] == "2"){
+            if(pg.length == 1){
+              rf = pg[0];
+            }else{
+              rf = pg[1];
+            }
           }else{
-            rf = pg[1];
+            rf = "-500";
           }
         }else{
-          rf = "-500";
+          if(meth_id[0] == "2"){
+            rf = pg[1];
+          }else if(meth_id[0] == "5"){
+            rf = pg[3];
+          }else{
+            rf = "-500";
+          }
         }
       }else{
-        if(meth_id[0] == "2"){
-          rf = pg[1];
-        }else if(meth_id[0] == "5"){
-          rf = pg[3];
-        }else{
-          rf = "-500";
-        }
+        p_goal = ls[0]["p_goal"];
+        rf =  p_goal.toString();
       }
+
 
       return Container(
         decoration: BoxDecoration(border:Border(bottom: BorderSide(width: 0.1),left: BorderSide(width: 0.1))),

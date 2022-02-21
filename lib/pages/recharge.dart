@@ -232,21 +232,22 @@ class Login_ extends State<recharge> {
                       Toast.toast(context,msg: "请求中...");
                       ResultData res = await HttpManager.getInstance().post("recharge/wechat",params: {"price":yj,"type":pay_type,"from":"weixinh5"},withLoading: false);
 
-                      Map data = jsonDecode(res.data["data"]);
-                      print(data);
                       int type_ = res.data["type"];
-
-                      if(data["code"] == 200){
+                      if(res.data["code"] == 200){
+                       String url = res.data["url"];
                         if(type_ == 1){
-                          print(data);
-                          Future s=   tobias.aliPay(data['url']) ;
+                          //Future s=   tobias.aliPay(res.data["url"]) ;
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
                         }else{
-                          JumpAnimation().jump(pay(data["data"]), context);
+                          JumpAnimation().jump(pay(res.data["url"]), context);
                         }
-
                       }else{
                         sleep(Duration(seconds: 1));
-                        Toast.toast(context,msg: data["data"],showTime: 2000);
+                        Toast.toast(context,msg: res.data["msg"]);
                       }
                     }:null,
                     child: Text("立即充值",style: TextStyle(color: Colors.white),),

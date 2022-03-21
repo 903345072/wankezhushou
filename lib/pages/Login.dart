@@ -236,7 +236,7 @@ class Login_ extends State<Login> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("还没有玩客助手账号?"),
+                  Text("还没有好胜助手账号?"),
                   GestureDetector(
                     onTap: (){
                       JumpAnimation().jump(register(), context);

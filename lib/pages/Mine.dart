@@ -464,7 +464,7 @@ class _Mine extends State<Mine>  with SingleTickerProviderStateMixin ,AutomaticK
                           child: Container(
                             child: GestureDetector(
                               onTap: (){
-                                Future res = Clipboard.setData(ClipboardData(text: '2598459617'));
+                                Future res = Clipboard.setData(ClipboardData(text: '2820560783'));
                                 res.whenComplete(() =>Toast.toast(context,msg: "复制成功"));
                               },
                               child: Container(

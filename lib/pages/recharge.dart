@@ -85,6 +85,38 @@ class Login_ extends State<recharge> {
                         child: Wrap(
                           direction: Axis.vertical,
                           children: <Widget>[
+
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              width: ScreenUtil().setWidth(399),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Image.asset("img/alipay.jpg",fit: BoxFit.fill,width: ScreenUtil().setWidth(100),),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text("支付宝(通道1)"),
+                                          Text("支付宝推荐,安全快捷",style: TextStyle(color: Colors.grey),),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Radio(
+                                    value:4,
+                                    groupValue:this.pay_type,
+                                    onChanged:(v){
+                                      setState(() {
+                                        this.pay_type = v;
+                                      });
+                                    },
+                                  ),
+
+                                ],
+                              ),
+                            ),
                             Container(
                               width: ScreenUtil().setWidth(399),
                               child: Row(
@@ -96,7 +128,7 @@ class Login_ extends State<recharge> {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Text("支付宝快捷支付"),
+                                          Text("支付宝(通道2)"),
                                           Text("支付宝推荐,安全快捷",style: TextStyle(color: Colors.grey),),
                                         ],
                                       )
@@ -115,37 +147,6 @@ class Login_ extends State<recharge> {
                                 ],
                               ),
                             ),
-//                            Container(
-//                              margin: EdgeInsets.only(top: 10),
-//                              width: ScreenUtil().setWidth(399),
-//                              child: Row(
-//                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                                children: <Widget>[
-//                                  Row(
-//                                    children: <Widget>[
-//                                      Image.asset("img/wxpay.jpg",fit: BoxFit.fill,width: ScreenUtil().setWidth(100),),
-//                                      Column(
-//                                        crossAxisAlignment: CrossAxisAlignment.start,
-//                                        children: <Widget>[
-//                                          Text("微信快捷支付"),
-//                                          Text("微信推荐,安全快捷",style: TextStyle(color: Colors.grey),),
-//                                        ],
-//                                      )
-//                                    ],
-//                                  ),
-//                                  Radio(
-//                                    value:1,
-//                                    groupValue:this.pay_type,
-//                                    onChanged:(v){
-//                                      setState(() {
-//                                        this.pay_type = v;
-//                                      });
-//                                    },
-//                                  ),
-//
-//                                ],
-//                              ),
-//                            )
                           ],
                         ),
                       ),
@@ -232,22 +233,22 @@ class Login_ extends State<recharge> {
                       Toast.toast(context,msg: "请求中...");
                       ResultData res = await HttpManager.getInstance().post("recharge/wechat",params: {"price":yj,"type":pay_type,"from":"weixinh5"},withLoading: false);
 
+                      Map data = jsonDecode(res.data["data"]);
                       int type_ = res.data["type"];
+
                       if(res.data["code"] == 200){
-                       String url = res.data["url"];
                         if(type_ == 1){
-                          //Future s=   tobias.aliPay(res.data["url"]) ;
-                          if (await canLaunch(url)) {
-                            await launch(url);
+                          if (2>1) {
+                            await launch(data["url"]);
                           } else {
-                            throw 'Could not launch $url';
+                            throw 'Could not launch $data["url"]';
                           }
                         }else{
-                          JumpAnimation().jump(pay(res.data["url"]), context);
+                          JumpAnimation().jump(pay(data["data"]), context);
                         }
                       }else{
                         sleep(Duration(seconds: 1));
-                        Toast.toast(context,msg: res.data["msg"]);
+                        Toast.toast(context,msg: data["data"],showTime: 2000);
                       }
                     }:null,
                     child: Text("立即充值",style: TextStyle(color: Colors.white),),

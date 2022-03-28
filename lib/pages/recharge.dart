@@ -39,7 +39,7 @@ class Login_ extends State<recharge> {
   FocusNode _commentFocus;
   bool is_show = true;
   int yj ;
-  int pay_type = 1;
+  int pay_type = 4;
   @override
   void initState() {
     // TODO: implement initState
@@ -236,7 +236,7 @@ class Login_ extends State<recharge> {
                       Map data = jsonDecode(res.data["data"]);
                       int type_ = res.data["type"];
 
-                      if(res.data["code"] == 200){
+                      if(data["code"] == 200){
                         if(type_ == 1){
                           if (2>1) {
                             await launch(data["url"]);
